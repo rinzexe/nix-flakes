@@ -16,7 +16,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cudatoolkit
-            cudnn
+            cudaPackages.cudnn
             cudaPackages.cuda_cudart
           ];
 
