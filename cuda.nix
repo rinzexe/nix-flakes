@@ -16,20 +16,13 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             cudatoolkit
-            linuxPackages.nvidia_x11
-            gcc
-            cmake
-            ninja
-            python3
-            python3Packages.numpy
-            python3Packages.pytorch
+            cudnn
+            cudaPackages.cuda_cudart
           ];
 
           shellHook = ''
             export CUDA_PATH=${pkgs.cudatoolkit}
-            export LD_LIBRARY_PATH=${pkgs.linuxPackages.nvidia_x11}/lib:${pkgs.ncurses5}/lib:${pkgs.stdenv.cc.cc.lib}/lib64:$LD_LIBRARY_PATH
-            export EXTRA_LDFLAGS="-L/lib -L${pkgs.linuxPackages.nvidia_x11}/lib"
-            export EXTRA_CCFLAGS="-I/usr/include"
+            export LD_LIBRARY_PATH="${pkgs.cudatoolkit}/lib:${pkgs.cudaPackages.cuda_cudart}/lib:$LD_LIBRARY_PATH"
           '';
         };
       });
